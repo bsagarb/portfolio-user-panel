@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+
+html, body, #root { height: 100%; }
+body { @apply bg-bg-dark text-white antialiased; }
+
+.about-card {
+  @apply p-8 rounded-2xl bg-[#111520] border transition-transform duration-300;
+}
+.about-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgba(147, 96, 255, 0.14), 0 6px 30px rgba(0, 200, 255, 0.08);
+  border-color: rgba(0, 200, 255, 0.35);
+}
+
+
+img.rounded-xl { border-radius: 12px; }
+
+.hide-scrollbar {
+  -ms-overflow-style: none; /* IE */
+  scrollbar-width: none;    /* Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;            /* Chrome, Safari */
+}
