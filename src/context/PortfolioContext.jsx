@@ -16,7 +16,7 @@ export const PortfolioProvider = ({ children }) => {
     const fetchPortfolio = async () => {
 
       const res = await axios.get(
-        `http://localhost:5001/api/${username}`
+        `https://portfolio-backend-oq6g.onrender.com/api/${username}`
       );
 
       setPortfolio(res.data);
