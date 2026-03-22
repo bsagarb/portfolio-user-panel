@@ -1,16 +1,19 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 import { FiLinkedin, FiExternalLink } from "react-icons/fi";
 
 export default function Footer() {
   return (
+
     <footer className="py-10 text-center text-gray-300 border-t border-gray-800 mt-20">
       <p className="mb-2">
         Designed with passion by{" "}
         <span className="bg-gradient-to-r from-purple-400 to-blue-300 text-transparent bg-clip-text font-semibold">
-          Vinay Kumar Mudidana
+          Sagar Bongu
         </span>{" "}
-        © 2025
+        © 2026
       </p>
+      
 
       <p className="text-sm mb-6 text-gray-400">
         Crafted for clarity, creativity & connection.
@@ -27,13 +30,16 @@ export default function Footer() {
         </a>
 
         <a
-          href="#"
+         
           target="_blank"
           rel="noopener noreferrer"
           className="hover:text-purple-400 transition"
         >
+         
           <FiExternalLink />
+          
         </a>
+         <Link to="/privacypolicy">privacy Policy</Link> 
       </div>
     </footer>
   );

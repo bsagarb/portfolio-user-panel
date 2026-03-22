@@ -1,26 +1,20 @@
-import React from 'react'
-import Navbar from './components/Navbar'
-import Hero from './components/Hero'
-import About from './components/About'
-import Experience from './components/Experience'
-import Skills from './components/Skills'
-import Projects from './components/Projects'
-import Footer from './components/Footer'
-import Contact from './components/Contact'
+import React from "react";
+import Home from "./home/Home";
+import {BrowserRouter,Routes,Route} from "react-router-dom";
+import LandingPage from "./pages/LandingPage";
+import UserNotFound from "./pages/UserNotFound";
+import { PortfolioProvider } from "./context/PortfolioContext";
+
 
 export default function App() {
   return (
-    <div className="min-h-screen">
-      <Navbar />
-      <main>
-        <Hero />
-        <About />
-        <Experience />
-        <Skills />
-        <Projects />
-        <Contact/>
-      </main>
-      <Footer />
-    </div>
-  )
+  
+    <Routes>
+      <Route path="/" element={<LandingPage/>} />
+      <Route path="/:username" element={<PortfolioProvider><Home/></PortfolioProvider>} />
+      <Route path="*" element={<UserNotFound/>}/>
+    </Routes>
+ 
+    
+  );
 }

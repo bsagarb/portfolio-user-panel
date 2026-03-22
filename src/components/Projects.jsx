@@ -1,17 +1,22 @@
-import React, { useState } from "react";
-import { graphicImages, uiuxImages } from "../assets/images";
+import React, { useState, useContext } from "react";
 import { IoClose } from "react-icons/io5";
+import { PortfolioContext } from "../context/PortfolioContext";
 
-export default function Projects() {
+export default function Projects({ projects = [] }) {
+  const { portfolio, loading } = useContext(PortfolioContext);
   const [activeTab, setActiveTab] = useState("graphic");
   const [showAll, setShowAll] = useState(false);
   const [popupImage, setPopupImage] = useState(null);
 
-  // Get images for the selected tab
-  const images = activeTab === "graphic" ? graphicImages : uiuxImages;
+  // Filter projects based on tab
+  const filteredProjects = portfolio.projects.filter(
+    (project) => project.type === activeTab,
+  );
 
-  // Show first 4 images if showAll = false
-  const imagesToShow = showAll ? images : images.slice(0, 4);
+  // Show first 4 unless "View More"
+  const imagesToShow = showAll
+    ? filteredProjects
+    : filteredProjects.slice(0, 4);
 
   return (
     <section id="work" className="px-8 py-20">
@@ -50,38 +55,55 @@ export default function Projects() {
         </button>
       </div>
 
-      {/* IMAGE GRID — Mobile 2x2, Desktop auto layout */}
-      <div className="
+      {/* IMAGE GRID */}
+      <div
+        className="
         grid 
         grid-cols-2 
         sm:grid-cols-2 
         md:grid-cols-3 
         lg:grid-cols-4 
         gap-6
-      ">
+      "
+      >
         {imagesToShow.length === 0 ? (
-          <p className="text-gray-500 text-center col-span-full">No Images</p>
+          <p className="text-gray-500 text-center col-span-full">No Projects</p>
         ) : (
-          imagesToShow.map((img) => (
-            <img
-              key={img.text}
-              src={img.image}
-              onClick={() => setPopupImage(img.image)}
-              alt="Project"
-              className="
-                rounded-xl cursor-pointer
-                shadow-[0_0_15px_rgba(255,255,255,0.1)]
-                hover:scale-[1.04]
-                hover:shadow-[0_0_25px_rgba(147,96,255,0.4)]
-                transition-all duration-300
-              "
-            />
+          imagesToShow.map((project) => (
+            <div key={project._id} className="flex flex-col items-center">
+              <img
+                src={project.imageUrl}
+                onClick={() => setPopupImage(project.imageUrl)}
+                alt={project.name}
+                className="
+        // rounded-xl cursor-pointer
+        // shadow-[0_0_15px_rgba(255,255,255,0.1)]
+        // hover:scale-[1.04]
+        // hover:shadow-[0_0_25px_rgba(147,96,255,0.4)]
+        // transition-all duration-300
+         w-full h-full object-cover cursor-pointer
+        hover:scale-110 transition-all duration-300
+      "
+              />
+
+              {project.projectLink && (
+                <a
+                  href={project.projectLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <button className="mt-2 px-4 py-1 bg-blue-500 text-white rounded">
+                    View Project
+                  </button>
+                </a>
+              )}
+            </div>
           ))
         )}
       </div>
 
       {/* VIEW MORE / VIEW LESS */}
-      {images.length > 4 && (
+      {filteredProjects.length > 4 && (
         <div className="flex justify-center mt-6">
           <button
             onClick={() => setShowAll(!showAll)}
@@ -102,14 +124,15 @@ export default function Projects() {
 
       {/* POPUP LIGHTBOX */}
       {popupImage && (
-        <div className="
+        <div
+          className="
           fixed inset-0 
           bg-black/80 
           backdrop-blur-sm 
           flex items-center justify-center 
           z-50
-        ">
-          {/* CLOSE BUTTON */}
+        "
+        >
           <button
             onClick={() => setPopupImage(null)}
             className="
@@ -122,7 +145,6 @@ export default function Projects() {
             <IoClose />
           </button>
 
-          {/* ORIGINAL SIZE IMAGE */}
           <img
             src={popupImage}
             alt="Preview"

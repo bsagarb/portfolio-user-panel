@@ -1,8 +1,13 @@
-import React from "react";
+import {React,useContext} from "react";
 import { FiMail, FiPhone, FiLinkedin } from "react-icons/fi";
 import { FaWhatsappSquare } from "react-icons/fa";
+import { PortfolioContext } from "../context/PortfolioContext";
+
 
 export default function Contact() {
+    const { portfolio, loading } = useContext(PortfolioContext);
+    const contactDetails=portfolio.contact;
+  
   return (
     <section id="contact" className="px-6 md:px-16 py-24 text-white">
       {/* Heading */}
@@ -31,7 +36,7 @@ export default function Contact() {
           <div className="p-6 p2 bg-[#11121A] border border-gray-800 rounded-xl hover:border-purple-500 transition duration-300">
             <FiMail className="text-red-400 text-3xl mb-3" />
             <h3 className="font-semibold text-lg">Email</h3>
-            <p className="text-gray-300">vinaykumarmudidana@gmail.com</p>
+            <p className="text-gray-300">{contactDetails.email}</p>
           </div>
           </a>
 
@@ -40,7 +45,7 @@ export default function Contact() {
           <div className="p-6 bg-[#11121A] border border-gray-800 rounded-xl hover:border-purple-500 transition duration-300">
             <FiPhone className="text-purple-400 text-3xl mb-3" />
             <h3 className="font-semibold text-lg">Phone</h3>
-            <p className="text-gray-300">+91 9381807819</p>
+            <p className="text-gray-300">+91 {contactDetails.phone}</p>
           </div>
           </a>
 
@@ -58,7 +63,7 @@ export default function Contact() {
           </a>
           {/* whatsapp */}
           <a
-            href="https://wa.me/919000245681"
+            href={`https://wa.me/91${contactDetails.phone}`}
             target="_blank"
             rel="noopener noreferrer"
             >

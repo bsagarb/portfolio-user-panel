@@ -40,7 +40,7 @@ export const graphicImages = [
 export const uiuxImages = [
 {
     image:amazon,
-    text:"amazon"
+    text:"amazonux"
 }
 ];
 
