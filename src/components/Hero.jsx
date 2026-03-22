@@ -1,5 +1,4 @@
 import {React,useContext} from "react";
-import { profileImage,myResume } from "../assets/images";
 import { PortfolioContext } from "../context/PortfolioContext";
 
 
